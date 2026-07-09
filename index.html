@@ -83,8 +83,11 @@
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
+        /* 头部 */
         .header {
             position: sticky;
             top: 0;
@@ -113,7 +116,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 16px;
+            position: relative;
         }
 
         .logo-area {
@@ -122,7 +125,7 @@
             gap: 10px;
             text-decoration: none;
             color: var(--text-primary);
-            flex-shrink: 0;
+            z-index: 1;
         }
         .logo-icon {
             width: 40px;
@@ -137,7 +140,6 @@
             font-weight: 700;
             font-size: 20px;
             letter-spacing: -0.5px;
-            flex-shrink: 0;
             box-shadow: 0 2px 8px rgba(26,115,232,0.3);
         }
         .logo-text {
@@ -153,12 +155,19 @@
             transition: color var(--transition);
         }
 
+        /* 导航绝对居中 */
         .nav-links {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
             display: flex;
             align-items: center;
             gap: 4px;
             list-style: none;
-            flex-shrink: 0;
+            margin: 0;
+            padding: 0;
+            z-index: 0;
         }
         .nav-links a {
             display: inline-flex;
@@ -192,7 +201,7 @@
             display: flex;
             align-items: center;
             gap: 6px;
-            flex-shrink: 0;
+            z-index: 1;
         }
         .icon-btn {
             width: 40px;
@@ -247,6 +256,7 @@
             display: none;
         }
 
+        /* 移动端菜单 */
         .mobile-nav-overlay {
             display: none;
             position: fixed;
@@ -323,6 +333,7 @@
             color: var(--blue);
         }
 
+        /* 搜索区域 */
         .hero-section {
             padding: 40px 24px 32px;
             text-align: center;
@@ -344,6 +355,7 @@
             color: var(--text-secondary);
             margin-bottom: 24px;
             font-weight: 400;
+            transition: color var(--transition);
         }
         .search-wrapper {
             position: relative;
@@ -378,6 +390,7 @@
             color: var(--text-tertiary);
             pointer-events: none;
             font-size: 22px;
+            transition: color var(--transition);
         }
         .search-input:focus~.search-icon {
             color: var(--blue);
@@ -407,207 +420,35 @@
             color: var(--text-primary);
         }
 
-        .tag-filter-section {
-            padding: 0 24px 8px;
+        /* 内容占位区 */
+        .placeholder-section {
             max-width: var(--max-width);
             margin: 0 auto;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            justify-content: center;
-            align-items: center;
-        }
-        .tag-filter-btn {
-            padding: 8px 18px;
-            border-radius: var(--radius-full);
-            border: 1px solid var(--border);
-            background: var(--surface);
-            color: var(--text-secondary);
-            cursor: pointer;
-            font-family: var(--font-display);
-            font-size: 13px;
-            font-weight: 500;
-            transition: all var(--transition-fast);
-            white-space: nowrap;
-            user-select: none;
-        }
-        .tag-filter-btn:hover {
-            background: var(--bg-tertiary);
-            border-color: var(--text-tertiary);
-            color: var(--text-primary);
-        }
-        .tag-filter-btn.active {
-            background: var(--blue);
-            color: #fff;
-            border-color: var(--blue);
-            box-shadow: 0 2px 8px rgba(26,115,232,0.3);
-        }
-        .results-count {
-            font-size: 13px;
-            color: var(--text-tertiary);
-            margin-left: 8px;
-        }
-
-        .posts-section {
-            max-width: var(--max-width);
-            margin: 0 auto;
-            padding: 20px 24px 40px;
-        }
-        .posts-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-            gap: 20px;
-        }
-        .no-results {
-            grid-column: 1 / -1;
+            padding: 60px 24px 80px;
             text-align: center;
-            padding: 60px 20px;
             color: var(--text-tertiary);
+            min-height: 50vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+        }
+        .placeholder-section .material-icons-outlined {
+            font-size: 64px;
+            opacity: 0.4;
+        }
+        .placeholder-section p {
             font-size: 16px;
         }
-        .no-results .material-icons-outlined {
-            font-size: 56px;
-            display: block;
-            margin-bottom: 16px;
-            opacity: 0.5;
-        }
 
-        .post-card {
-            background: var(--surface);
-            border: 1px solid var(--border-light);
-            border-radius: 0;
-            overflow: hidden;
-            cursor: pointer;
-            transition: all var(--transition);
-            box-shadow: var(--shadow-sm);
-            display: flex;
-            flex-direction: column;
-            animation: fadeInUp 0.5s ease forwards;
-            opacity: 0;
-        }
-        .post-card:hover {
-            box-shadow: var(--shadow-lg);
-            border-color: var(--border);
-            transform: translateY(-4px);
-        }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .post-card-image {
-            height: 180px;
-            background-color: #f1f3f4;
-            position: relative;
-            flex-shrink: 0;
-        }
-        .post-card-image .overlay-tag {
-            position: absolute;
-            top: 14px;
-            left: 14px;
-            padding: 5px 12px;
-            border-radius: var(--radius-full);
-            font-family: var(--font-display);
-            font-size: 11px;
-            font-weight: 600;
-            text-transform: uppercase;
-            color: #fff;
-            backdrop-filter: blur(8px);
-            background: rgba(0,0,0,0.55);
-            z-index: 2;
-        }
-        .post-card-body {
-            padding: 18px 20px 20px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-        .post-card-meta {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 12px;
-            color: var(--text-tertiary);
-        }
-        .post-card-meta .dot {
-            width: 4px;
-            height: 4px;
-            border-radius: 50%;
-            background: var(--text-tertiary);
-        }
-        .post-card-title {
-            font-family: var(--font-display);
-            font-size: 18px;
-            font-weight: 600;
-            color: var(--text-primary);
-            line-height: 1.3;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-        .post-card:hover .post-card-title {
-            color: var(--blue);
-        }
-        .post-card-excerpt {
-            font-size: 14px;
-            color: var(--text-secondary);
-            line-height: 1.5;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            flex: 1;
-        }
-        .post-card-footer {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .post-card-avatar {
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            background: var(--bg-tertiary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--text-secondary);
-        }
-        .post-card-author {
-            font-size: 13px;
-            font-weight: 500;
-            color: var(--text-secondary);
-        }
-        .post-card-tag-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin-top: 2px;
-        }
-        .post-card-tag {
-            font-size: 11px;
-            padding: 3px 10px;
-            border-radius: var(--radius-full);
-            background: var(--bg-tertiary);
-            color: var(--text-secondary);
-            font-family: var(--font-display);
-            font-weight: 500;
-            transition: all var(--transition-fast);
-        }
-        .post-card-tag:hover {
-            background: var(--blue-light);
-            color: var(--blue);
-        }
-
+        /* 页脚 */
         .footer {
             border-top: 1px solid var(--border-light);
             padding: 28px 24px;
             background: var(--bg-secondary);
-            margin-top: 20px;
+            transition: background-color var(--transition), border-color var(--transition);
+            margin-top: auto;
         }
         .footer-inner {
             max-width: var(--max-width);
@@ -641,7 +482,7 @@
             color: var(--text-tertiary);
         }
 
-        /* 返回顶部按钮 — 彻底修复移动端点击问题 */
+        /* 返回顶部按钮 */
         .back-to-top {
             position: fixed;
             bottom: calc(28px + var(--safe-bottom));
@@ -687,130 +528,162 @@
             pointer-events: none;
         }
 
+        /* 响应式 */
         @media (max-width: 768px) {
-            .header-inner { padding: 0 16px; }
-            .nav-links { display: none; }
-            .mobile-menu-btn { display: flex; }
-            .mobile-nav-overlay, .mobile-nav-panel { display: block; }
-            .hero-section { padding: 28px 16px 20px; }
-            .hero-title { font-size: 24px; }
-            .posts-grid { grid-template-columns: 1fr; gap: 14px; }
-            .posts-section { padding: 16px 16px 32px; }
-            .tag-filter-section {
-                padding: 0 12px 8px;
-                gap: 6px;
-                justify-content: flex-start;
-                overflow-x: auto;
-                flex-wrap: nowrap;
-                -webkit-overflow-scrolling: touch;
-                mask-image: linear-gradient(to right, transparent 0%, black 4%, black 96%, transparent 100%);
-                -webkit-mask-image: linear-gradient(to right, transparent 0%, black 4%, black 96%, transparent 100%);
-                padding-bottom: 4px;
+            .header-inner {
+                display: flex;
+                justify-content: space-between;
+                padding: 0 16px;
             }
-            .tag-filter-btn { flex-shrink: 0; font-size: 12px; padding: 7px 14px; }
-            .footer-inner { flex-direction: column; text-align: center; }
-            .footer-links { justify-content: center; }
+            /* 移动端隐藏桌面导航，改用侧边栏 */
+            .nav-links {
+                display: none;
+            }
+            .mobile-menu-btn {
+                display: flex;
+            }
+            .mobile-nav-overlay,
+            .mobile-nav-panel {
+                display: block;
+            }
+            .hero-section {
+                padding: 28px 16px 20px;
+            }
+            .hero-title {
+                font-size: 24px;
+            }
+            .placeholder-section {
+                padding: 40px 16px 60px;
+                min-height: 40vh;
+            }
+            .footer-inner {
+                flex-direction: column;
+                text-align: center;
+            }
+            .footer-links {
+                justify-content: center;
+            }
             .back-to-top {
                 bottom: calc(24px + var(--safe-bottom));
                 right: 20px;
                 width: 52px;
                 height: 52px;
             }
-            .back-to-top .material-icons-outlined { font-size: 24px; }
-            .logo-text { font-size: 18px; }
-            .logo-icon { width: 34px; height: 34px; font-size: 17px; border-radius: 0; }
-            .post-card-image { height: 140px; }
-            .post-card-title { font-size: 16px; }
+            .back-to-top .material-icons-outlined {
+                font-size: 24px;
+            }
+            .logo-text {
+                font-size: 18px;
+            }
+            .logo-icon {
+                width: 34px;
+                height: 34px;
+                font-size: 17px;
+                border-radius: 0;
+            }
         }
 
         @media (max-width: 480px) {
-            .hero-title { font-size: 22px; }
-            .search-input { padding: 12px 40px 12px 42px; font-size: 14px; }
-            .search-icon { left: 12px; font-size: 18px; }
-            .post-card-body { padding: 14px 16px 16px; }
-            .header { --header-height: 56px; }
-            .header-inner { padding: 0 10px; }
+            .hero-title {
+                font-size: 22px;
+            }
+            .search-input {
+                padding: 12px 40px 12px 42px;
+                font-size: 14px;
+            }
+            .search-icon {
+                left: 12px;
+                font-size: 18px;
+            }
+            .header {
+                --header-height: 56px;
+            }
             .back-to-top {
                 bottom: calc(20px + var(--safe-bottom));
                 right: 16px;
                 width: 50px;
                 height: 50px;
             }
-            .back-to-top .material-icons-outlined { font-size: 24px; }
+            .back-to-top .material-icons-outlined {
+                font-size: 24px;
+            }
         }
 
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--text-tertiary); }
+        /* 滚动条 */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-tertiary);
+        }
     </style>
 </head>
 <body>
+    <!-- 头部 -->
     <header class="header" id="header">
         <div class="header-inner">
-            <a href="#" class="logo-area">
+            <a href="#" class="logo-area" aria-label="Zhenxu的Blog 首页">
                 <div class="logo-icon">ZX</div>
                 <span class="logo-text">Zhenxu的<span class="logo-dot">Blog</span></span>
             </a>
+            <!-- 导航仅保留首页，绝对居中 -->
             <nav>
                 <ul class="nav-links">
                     <li><a href="#" class="active"><span class="material-icons-outlined">home</span> 首页</a></li>
-                    <li><a href="#"><span class="material-icons-outlined">explore</span> 探索</a></li>
-                    <li><a href="#"><span class="material-icons-outlined">trending_up</span> 热门</a></li>
-                    <li><a href="#"><span class="material-icons-outlined">info</span> 关于</a></li>
                 </ul>
             </nav>
             <div class="header-actions">
-                <button class="icon-btn theme-toggle" id="themeToggle">
+                <button class="icon-btn theme-toggle" id="themeToggle" aria-label="切换暗色模式" title="切换主题">
                     <span class="material-icons-outlined icon-sun">light_mode</span>
                     <span class="material-icons-outlined icon-moon">dark_mode</span>
                 </button>
-                <button class="icon-btn mobile-menu-btn" id="mobileMenuBtn">
+                <button class="icon-btn mobile-menu-btn" id="mobileMenuBtn" aria-label="菜单">
                     <span class="material-icons-outlined">menu</span>
                 </button>
             </div>
         </div>
     </header>
 
+    <!-- 移动端导航（也仅保留首页） -->
     <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
     <aside class="mobile-nav-panel" id="mobileNavPanel">
-        <button class="close-btn" id="mobileNavClose"><span class="material-icons-outlined">close</span></button>
+        <button class="close-btn" id="mobileNavClose" aria-label="关闭菜单">
+            <span class="material-icons-outlined">close</span>
+        </button>
         <ul class="nav-links-mobile">
             <li><a href="#" class="active"><span class="material-icons-outlined">home</span> 首页</a></li>
-            <li><a href="#"><span class="material-icons-outlined">explore</span> 探索</a></li>
-            <li><a href="#"><span class="material-icons-outlined">trending_up</span> 热门</a></li>
-            <li><a href="#"><span class="material-icons-outlined">info</span> 关于</a></li>
         </ul>
     </aside>
 
+    <!-- 搜索区 -->
     <section class="hero-section">
         <h1 class="hero-title">探索技术与设计的边界</h1>
         <p class="hero-subtitle">深入见解 · 前沿技术 · 设计思维 · 每周更新</p>
         <div class="search-wrapper">
             <span class="material-icons-outlined search-icon">search</span>
             <input type="text" class="search-input" id="searchInput" placeholder="搜索文章、主题或关键词...">
-            <button class="search-clear" id="searchClear"><span class="material-icons-outlined" style="font-size:18px;">close</span></button>
+            <button class="search-clear" id="searchClear" aria-label="清除搜索">
+                <span class="material-icons-outlined" style="font-size:18px;">close</span>
+            </button>
         </div>
     </section>
 
-    <div class="tag-filter-section" id="tagFilterSection">
-        <button class="tag-filter-btn active" data-tag="all">全部</button>
-        <button class="tag-filter-btn" data-tag="web">Web 开发</button>
-        <button class="tag-filter-btn" data-tag="design">设计</button>
-        <button class="tag-filter-btn" data-tag="cloud">云计算</button>
-        <button class="tag-filter-btn" data-tag="mobile">移动开发</button>
-        <span class="results-count" id="resultsCount"></span>
-    </div>
-
-    <section class="posts-section">
-        <div class="posts-grid" id="postsGrid"></div>
-        <div class="no-results" id="noResults" style="display:none;">
-            <span class="material-icons-outlined">search_off</span>
-            <p>没有找到匹配的文章</p>
-            <p style="font-size:13px;margin-top:4px;">试试调整搜索词或筛选条件</p>
-        </div>
+    <!-- 占位内容（您可替换为自己的文章） -->
+    <section class="placeholder-section">
+        <span class="material-icons-outlined">article</span>
+        <p>文章内容即将上线，敬请期待。</p>
+        <p style="font-size:13px;color:var(--text-tertiary);">您可以在此处自由填充您的博客文章。</p>
     </section>
 
+    <!-- 页脚 -->
     <footer class="footer">
         <div class="footer-inner">
             <span class="footer-copy">&copy; 2026 Zhenxu Fu. 保留所有权利。</span>
@@ -820,30 +693,15 @@
         </div>
     </footer>
 
-    <button class="back-to-top" id="backToTop">
+    <!-- 返回顶部按钮 -->
+    <button class="back-to-top" id="backToTop" aria-label="回到顶部">
         <span class="material-icons-outlined">arrow_upward</span>
     </button>
 
     <script>
         (function() {
-            const posts = [
-                { id:1, title:'深度解析 Transformer 架构：从注意力机制到实际应用', excerpt:'Transformer 架构彻底改变了自然语言处理领域。', date:'2026-07-05', readTime:'12 分钟', author:'张明远', authorInitial:'张', tags:['web'], tagLabels:['Web 开发'], imageColor:'#1a73e8', overlayTag:'AI' },
-                { id:2, title:'现代 CSS 布局完全指南：Grid 与 Flexbox 的最佳实践', excerpt:'掌握 CSS Grid 和 Flexbox 是现代前端开发者的必备技能。', date:'2026-07-03', readTime:'8 分钟', author:'李思涵', authorInitial:'李', tags:['web','design'], tagLabels:['Web 开发','设计'], imageColor:'#ea4335', overlayTag:'CSS' },
-                { id:3, title:'Kubernetes 生产环境最佳实践：从部署到监控', excerpt:'在生产环境中运行 Kubernetes 集群需要周密的规划。', date:'2026-06-28', readTime:'15 分钟', author:'王浩然', authorInitial:'王', tags:['cloud'], tagLabels:['云计算'], imageColor:'#34a853', overlayTag:'K8s' },
-                { id:4, title:'Material Design 3 设计系统深度解读', excerpt:'Google 的 Material Design 3 带来了全新的个性化设计理念。', date:'2026-06-25', readTime:'10 分钟', author:'陈雨薇', authorInitial:'陈', tags:['design','mobile'], tagLabels:['设计','移动开发'], imageColor:'#fbbc04', overlayTag:'设计' },
-                { id:5, title:'Flutter 跨平台开发：一套代码覆盖所有终端', excerpt:'Flutter 凭借其高性能渲染引擎和丰富的组件库，成为跨平台开发的热门选择。', date:'2026-06-20', readTime:'11 分钟', author:'刘子昂', authorInitial:'刘', tags:['mobile','design'], tagLabels:['移动开发','设计'], imageColor:'#4285f4', overlayTag:'Flutter' },
-                { id:6, title:'大语言模型应用开发：从 Prompt 工程到 RAG 架构', excerpt:'如何构建基于大语言模型的智能应用？', date:'2026-06-15', readTime:'14 分钟', author:'张明远', authorInitial:'张', tags:['cloud'], tagLabels:['云计算'], imageColor:'#7c4dff', overlayTag:'LLM' },
-                { id:7, title:'Web 性能优化实战：Core Web Vitals 全面达标指南', excerpt:'Google 的 Core Web Vitals 已成为搜索排名的重要因素。', date:'2026-06-10', readTime:'9 分钟', author:'李思涵', authorInitial:'李', tags:['web','design'], tagLabels:['Web 开发','设计'], imageColor:'#00bfa5', overlayTag:'性能' },
-                { id:8, title:'Google Cloud Run 无服务器部署深度实践', excerpt:'Cloud Run 结合了无服务器的便利性和容器的灵活性。', date:'2026-06-05', readTime:'13 分钟', author:'王浩然', authorInitial:'王', tags:['cloud','web'], tagLabels:['云计算','Web 开发'], imageColor:'#ff6d00', overlayTag:'Cloud' },
-                { id:9, title:'设计中的极简主义：少即是多的艺术与科学', excerpt:'极简设计不仅仅是美学选择，更是功能性的体现。', date:'2026-05-30', readTime:'7 分钟', author:'陈雨薇', authorInitial:'陈', tags:['design'], tagLabels:['设计'], imageColor:'#546e7a', overlayTag:'极简' }
-            ];
-
-            const postsGrid = document.getElementById('postsGrid');
             const searchInput = document.getElementById('searchInput');
             const searchClear = document.getElementById('searchClear');
-            const tagButtons = document.querySelectorAll('.tag-filter-btn');
-            const resultsCount = document.getElementById('resultsCount');
-            const noResults = document.getElementById('noResults');
             const themeToggle = document.getElementById('themeToggle');
             const backToTop = document.getElementById('backToTop');
             const header = document.getElementById('header');
@@ -852,75 +710,17 @@
             const mobileNavOverlay = document.getElementById('mobileNavOverlay');
             const mobileNavClose = document.getElementById('mobileNavClose');
 
-            let activeTag = 'all';
-            let searchQuery = '';
-
-            function renderPosts() {
-                const filtered = posts.filter(post => {
-                    const matchTag = activeTag === 'all' || post.tags.includes(activeTag);
-                    const query = searchQuery.toLowerCase().trim();
-                    const matchSearch = !query || post.title.toLowerCase().includes(query) || post.excerpt.toLowerCase().includes(query) || post.tagLabels.some(t => t.toLowerCase().includes(query)) || post.author.toLowerCase().includes(query);
-                    return matchTag && matchSearch;
-                });
-                postsGrid.innerHTML = '';
-                noResults.style.display = 'none';
-                if (filtered.length === 0) {
-                    noResults.style.display = 'block';
-                    resultsCount.textContent = '(0 篇)';
-                } else {
-                    resultsCount.textContent = `(${filtered.length} 篇)`;
-                    filtered.forEach((post, index) => {
-                        const card = document.createElement('article');
-                        card.className = 'post-card';
-                        card.style.animationDelay = `${index * 0.06}s`;
-                        card.innerHTML = `
-                            <div class="post-card-image" style="background-color: ${post.imageColor};">
-                                <span class="overlay-tag">${post.overlayTag}</span>
-                            </div>
-                            <div class="post-card-body">
-                                <div class="post-card-meta"><span>${post.date}</span><span class="dot"></span><span>${post.readTime}</span></div>
-                                <h3 class="post-card-title">${highlightMatch(post.title, searchQuery)}</h3>
-                                <p class="post-card-excerpt">${highlightMatch(post.excerpt, searchQuery)}</p>
-                                <div class="post-card-tag-row">${post.tagLabels.map(tl => `<span class="post-card-tag">${tl}</span>`).join('')}</div>
-                                <div class="post-card-footer"><div class="post-card-avatar">${post.authorInitial}</div><span class="post-card-author">${post.author}</span></div>
-                            </div>
-                        `;
-                        card.addEventListener('click', () => alert(`即将打开文章：\n\n"${post.title}"`));
-                        postsGrid.appendChild(card);
-                    });
-                }
-            }
-
-            function highlightMatch(text, query) {
-                if (!query || !query.trim()) return text;
-                const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-                const regex = new RegExp(`(${escaped})`, 'gi');
-                return text.replace(regex, '<mark style="background:#fde293;color:#202124;padding:0 2px;">$1</mark>');
-            }
-
+            // 搜索框清除按钮
             searchInput.addEventListener('input', () => {
-                searchQuery = searchInput.value;
-                searchClear.classList.toggle('visible', !!searchQuery.trim());
-                renderPosts();
+                searchClear.classList.toggle('visible', !!searchInput.value.trim());
             });
             searchClear.addEventListener('click', () => {
                 searchInput.value = '';
-                searchQuery = '';
                 searchClear.classList.remove('visible');
-                renderPosts();
                 searchInput.focus();
             });
 
-            tagButtons.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    tagButtons.forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    activeTag = btn.getAttribute('data-tag');
-                    renderPosts();
-                    document.getElementById('tagFilterSection').scrollIntoView({ behavior:'smooth', block:'start' });
-                });
-            });
-
+            // 主题切换
             function setTheme(theme) {
                 if (theme === 'dark') {
                     document.documentElement.setAttribute('data-theme', 'dark');
@@ -931,13 +731,15 @@
                 }
             }
             themeToggle.addEventListener('click', () => {
-                setTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+                const current = document.documentElement.getAttribute('data-theme');
+                setTheme(current === 'dark' ? 'light' : 'dark');
             });
             const savedTheme = localStorage.getItem('blogsphere-theme');
             if (savedTheme === 'dark') setTheme('dark');
             else if (savedTheme === 'light') setTheme('light');
             else if (window.matchMedia('(prefers-color-scheme: dark)').matches) setTheme('dark');
 
+            // 移动端菜单
             function openMobileNav() {
                 mobileNavPanel.classList.add('open');
                 mobileNavOverlay.classList.add('open');
@@ -953,7 +755,7 @@
             mobileNavOverlay.addEventListener('click', closeMobileNav);
             document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMobileNav(); });
 
-            // ---------- 返回顶部（彻底修复）----------
+            // 返回顶部
             let ticking = false;
             function updateVisibility() {
                 const scrolled = window.scrollY > 500;
@@ -970,13 +772,12 @@
                 }
             }, { passive: true });
 
-            // 只使用 click 事件，移动端完美兼容
             backToTop.addEventListener('click', (e) => {
                 e.stopPropagation();
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             });
 
-            // 键盘快捷键
+            // 快捷键 Ctrl+K 聚焦搜索
             document.addEventListener('keydown', e => {
                 if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
                     e.preventDefault();
@@ -985,7 +786,6 @@
                 }
             });
 
-            renderPosts();
             updateVisibility();
         })();
     </script>
